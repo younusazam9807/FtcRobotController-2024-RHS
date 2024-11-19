@@ -19,6 +19,7 @@ public class 5079Teleop extends LinearOpMode {
     private DcMotor leftBackWheel = null;
     private DcMotor linearExtender = null;
     private Servo clawArmControl = null;
+    private CRServo spinner = null;
     private ElapsedTime runtime = new ElapsedTime();
 
     private int linearExtenderPosition = 0;
@@ -33,6 +34,7 @@ public class 5079Teleop extends LinearOpMode {
 
         linearExtender = hardwareMap.get(DcMotor.class, "linearExtender");
         clawArmControl = hardwareMap.get(Servo.class, "clawArmControl");
+        spinner = hardwareMap.get(CRServo.class, "spinner");
         
         leftBackWheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftBackWheel.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -90,6 +92,12 @@ public class 5079Teleop extends LinearOpMode {
             }
             if (linearExtenderPosition < (linearExtenderOriginalPosition + LINEAR_EXTENDER_MIN)) {
                 linearExtenderPosition = (linearExtenderOriginalPosition + LINEAR_EXTENDER_MIN);
+            }
+
+            if (gamepad1.left_bumper) {
+                spinner.setPower(1);
+            } else {
+                spinner.setPower(0);
             }
 
             linearExtender.setTargetPosition(linearExtenderPosition);

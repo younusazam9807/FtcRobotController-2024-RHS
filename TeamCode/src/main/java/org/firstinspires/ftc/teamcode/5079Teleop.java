@@ -8,6 +8,11 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name="5079 Teleop", group="DriveTest")
 public class 5079Teleop extends LinearOpMode {
+    private static final int LINEAR_EXTENDER_MIN = 1000;
+    private static final int LINEAR_EXTENDER_MAX = 0;
+    private static final int LINEAR_EXTENDER_CHANGE_RATE = 1;
+    private static final double CLAW_ARM_MOVE_AMOUNT = -0.1;
+
     private DcMotor leftFrontWheel = null;
     private DcMotor rightFrontWheel = null;
     private DcMotor rightBackWheel = null;
@@ -15,6 +20,10 @@ public class 5079Teleop extends LinearOpMode {
     private DcMotor linearExtender = null;
     private Servo clawArmControl = null;
     private ElapsedTime runtime = new ElapsedTime();
+
+    private int linearExtenderPosition = 0;
+    private int linearExtenderOriginalPosition = 0;
+    private int clawArmOriginalPosition = 0;
 
     public void runOpMode() {
         leftFrontWheel = hardwareMap.get(DcMotor.class, "leftFrontWheel");
@@ -34,9 +43,13 @@ public class 5079Teleop extends LinearOpMode {
 
         // Set the direction motors will move
         leftFrontWheel.setDirection(DcMotor.Direction.FORWARD);
-        rightFrontWheel.setDirection(DcMotor.Direction.REVERSE);
-        rightBackWheel.setDirection(DcMotor.Direction.REVERSE);
-        leftBackWheel.setDirection(DcMotor.Direction.REVERSE);
+        rightFrontWheel.setDirection(DcMotor.Direction.FORWARD);
+        rightBackWheel.setDirection(DcMotor.Direction.FORWARD);
+        leftBackWheel.setDirection(DcMotor.Direction.FORWARD);
+
+        clawArmControl.setDirection(DcMotor.Direction.FORWARD);
+
+        linearExtenderPosition = linearExtenderOriginalPosition = DcMotor.getCurrentPosition();
 
         waitForStart();
         runtime.reset();
@@ -59,6 +72,30 @@ public class 5079Teleop extends LinearOpMode {
             rightFrontWheel.setPower(frontRightPower);
             rightBackWheel.setPower(backRightPower);
 
+            if (gamepad1.y) {
+                clawArmControl.setPosition(clawArmOriginalPosition)
+            } else if (gamepad1.x) {
+                clawArmControl.setPosition(clawArmOriginalPosition + CLAW_ARM_MOVE_AMOUNT);
+            }
+
+            // TODO: Move to gamepad2
+            if (gamepad1.dpad_up) {
+                linearExtenderPosition += LINEAR_EXTENDER_CHANGE_RATE;
+            } else if (gamepad1.dpad_down) {
+                linearExtenderPosition -= LINEAR_EXTENDER_CHANGE_RATE;
+            }
+
+            if (linearExtenderPosition > (linearExtenderOriginalPosition + LINEAR_EXTENDER_MAX)) {
+                linearExtenderPosition = (linearExtenderOriginalPosition + LINEAR_EXTENDER_MAX);
+            }
+            if (linearExtenderPosition < (linearExtenderOriginalPosition + LINEAR_EXTENDER_MIN)) {
+                linearExtenderPosition = (linearExtenderOriginalPosition + LINEAR_EXTENDER_MIN);
+            }
+
+            linearExtender.setTargetPosition(linearExtenderPosition);
+
+            telemetry.addData("clawArmControl Position:", clawArmControl.getPosition());
+            telemetry.addData("linearExtender Position:", linearExtender.getCurrentPosition());
             telemetry.update();
         }
     }

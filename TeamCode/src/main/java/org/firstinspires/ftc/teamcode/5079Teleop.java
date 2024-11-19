@@ -96,6 +96,7 @@ public class 5079Teleop extends LinearOpMode {
 
             telemetry.addData("clawArmControl Position:", clawArmControl.getPosition());
             telemetry.addData("linearExtender Position:", linearExtender.getCurrentPosition());
+            telemetry.addData("linearExtender Target:", linearExtenderPosition);
             telemetry.update();
         }
     }

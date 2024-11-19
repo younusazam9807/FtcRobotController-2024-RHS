@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="8194 Teleop", group="DriveTest")
-public class 8194Teleop extends LinearOpMode {
+@TeleOp(name="5079 Teleop", group="DriveTest")
+public class 5079Teleop extends LinearOpMode {
     private static final int LINEAR_EXTENDER_MIN = 1000;
     private static final int LINEAR_EXTENDER_MAX = 0;
     private static final int LINEAR_EXTENDER_CHANGE_RATE = 1;

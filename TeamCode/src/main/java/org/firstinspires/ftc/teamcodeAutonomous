@@ -10,8 +10,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-@Autonomous(name = "redBackdropSideAuto", group = "Blue")
-public class redBackdropSideAuto extends LinearOpMode {
+@Autonomous(name = "5709Auto", group = "Blue")
+public class teamAuto extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -20,7 +20,7 @@ public class redBackdropSideAuto extends LinearOpMode {
     private DcMotorEx rightBack = null;
 
     private DcMotorEx leftFront = null;
-    private  DcMotorEx rightFront = null;
+    private DcMotorEx rightFront = null;
     private CRServo clawLeft = null;
 
 
@@ -44,12 +44,7 @@ public class redBackdropSideAuto extends LinearOpMode {
             rightFront.setPower(pow);
         }
     }
-    public void dropPixel(double time){
-        runtime.reset();
-        while (runtime.seconds() < time) {
-            clawLeft.setPower(0.5);
-        }
-    }
+    
     public void stopBot(){
         leftBack.setPower(0);
         rightBack.setPower(0);
@@ -98,10 +93,5 @@ public class redBackdropSideAuto extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        turn(0.52, 2);
-        moveStraight(0.5, 5);
-        stopBot();
-        runtime.reset();
-        dropPixel(3);
     }
 }

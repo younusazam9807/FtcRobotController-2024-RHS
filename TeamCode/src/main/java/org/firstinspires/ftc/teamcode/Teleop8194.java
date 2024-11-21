@@ -39,7 +39,6 @@ public class Teleop8194 extends LinearOpMode {
 
         linearExtender = hardwareMap.get(DcMotor.class, "linearExtender");
         clawArmControl = hardwareMap.get(Servo.class, "clawArmControl");
-
         leftBackWheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftBackWheel.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightBackWheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

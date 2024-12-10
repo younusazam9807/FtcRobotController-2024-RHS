@@ -1,5 +1,9 @@
-package org.firstinspires.ftc.teamcode;
-// TODO: imports
+package org.firstinspires.ftc.teamcode.team8194.tests;
+
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 /**
  * Runs all motors forwards/backwards based on the Y position of Gamepad1's left joystick.
@@ -17,7 +21,7 @@ public class DrivetrainDirectionTest extends LinearOpMode {
     private DcMotorEx leftFront     = null;
     private DcMotorEx rightFront    = null;
 
-    private void init() {
+    private void initialize() {
         // Initialize motors
         leftBack    = hardwareMap.get(DcMotorEx.class, "leftBackWheel");
         rightBack   = hardwareMap.get(DcMotorEx.class, "rightBackWheel");
@@ -25,10 +29,10 @@ public class DrivetrainDirectionTest extends LinearOpMode {
         rightFront  = hardwareMap.get(DcMotorEx.class, "rightFrontWheel");
 
         // Set all motors to run forwards
-        leftBack.setDirection(DcMotor.Direction.FORWARD);
-        rightBack.setDirection(DcMotor.Direction.FORWARD);
-        leftFront.setDirection(DcMotor.Direction.FORWARD);
-        rightFront.setDirection(DcMotor.Direction.FORWARD);
+        leftBack    .setDirection(DcMotor.Direction.FORWARD);
+        rightBack   .setDirection(DcMotor.Direction.FORWARD);
+        leftFront   .setDirection(DcMotor.Direction.FORWARD);
+        rightFront  .setDirection(DcMotor.Direction.FORWARD);
     }
 
     private void driveMotors() {

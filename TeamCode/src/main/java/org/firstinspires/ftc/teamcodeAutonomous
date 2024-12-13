@@ -93,5 +93,7 @@ public class teamAuto extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
+        moveStraight(0.5, 1);
+        
     }
 }

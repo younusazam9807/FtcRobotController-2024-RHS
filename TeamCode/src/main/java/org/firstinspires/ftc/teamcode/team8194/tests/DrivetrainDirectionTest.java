@@ -21,7 +21,7 @@ public class DrivetrainDirectionTest extends LinearOpMode {
     private DcMotorEx leftFront     = null;
     private DcMotorEx rightFront    = null;
 
-    private void initialize() {
+    private void loadHardwareMap() {
         // Initialize motors
         leftBack    = hardwareMap.get(DcMotorEx.class, "leftBackWheel");
         rightBack   = hardwareMap.get(DcMotorEx.class, "rightBackWheel");
@@ -46,6 +46,7 @@ public class DrivetrainDirectionTest extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         init();
+        loadHardwareMap();
         while (opModeIsActive()) {
             driveMotors();
         }

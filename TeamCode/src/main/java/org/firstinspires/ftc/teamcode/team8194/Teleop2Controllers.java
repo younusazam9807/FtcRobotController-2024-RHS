@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.team8194;
 
+import androidx.core.math.MathUtils;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -46,6 +48,8 @@ public abstract class Teleop2Controllers extends LinearOpMode {
     private boolean clawOpen = false;
 
     private boolean isClawOpenButtonHeld = false;
+
+    private int linearExtenderPos = 0;
 
     // Drivetrain Motors
     private DcMotorEx leftBack      = null;
@@ -136,7 +140,8 @@ public abstract class Teleop2Controllers extends LinearOpMode {
      * @param position Position to move to in motor ticks
      */
     private void setLinearExtenderPosition(int position) {
-        armExtender.setTargetPosition(position);
+        linearExtenderPos = MathUtils.clamp(position, LINEAR_EXTENDER_DOWN_POS, LINEAR_EXTENDER_UP_POS);
+        armExtender.setTargetPosition(linearExtenderPos);
         armExtender.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armExtender.setPower(MAX_ARM_MOVE_SPEED);
     }
@@ -147,9 +152,9 @@ public abstract class Teleop2Controllers extends LinearOpMode {
     private void moveLinearExtender() {
         Gamepad linearExtenderGamepad = getSecondaryGamepad();
         if (linearExtenderGamepad.dpad_up) {
-            setLinearExtenderPosition(LINEAR_EXTENDER_UP_POS);
-        } else if (linearExtenderGamepad.dpad_down) {
-            setLinearExtenderPosition(LINEAR_EXTENDER_DOWN_POS);
+            setLinearExtenderPosition(linearExtenderPos + 1);
+        } else {
+            setLinearExtenderPosition(linearExtenderPos - 1);
         }
     }
 

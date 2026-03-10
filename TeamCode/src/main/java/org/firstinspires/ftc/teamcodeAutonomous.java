@@ -12,7 +12,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 @Autonomous(name = "5709Auto", group = "Blue")
 public class teamAuto extends LinearOpMode {
-
+eRGHAETG
     private ElapsedTime runtime = new ElapsedTime();
 
     //Motor Declarations
